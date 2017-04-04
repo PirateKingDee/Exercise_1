@@ -17,7 +17,9 @@ public final class EchoServer {
                 try {
                     //accept client connect to this server
                     Socket socket = serverSocket.accept();
-
+                    
+                    //runnable object of server
+                    Runnable server = () -> {
                         try{
                             String address = socket.getInetAddress().getHostAddress();
                             System.out.printf("Client connected: %s%n", address);
@@ -42,6 +44,11 @@ public final class EchoServer {
                         catch(Exception e){
                             
                         }
+                        
+                    };
+                    //run multi thread for server
+                    Thread serverThread = new Thread(server);
+                    serverThread.start();
                     
                 }
                 catch(Exception e){
